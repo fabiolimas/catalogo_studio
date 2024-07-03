@@ -21,10 +21,11 @@ class CreateProdutosTable extends Migration
             $table->string('categoria');
             $table->string('cor');
             $table->integer('estoque');
-            $table->double('preco',5,2);
+            $table->double('preco',10,2);
+            $table->double('preco_venda',10,2)->nullable();
             $table->longText('imagem');
             $table->string('marca');
-            $table->string('tamanho_salto');
+            $table->string('tamanho_salto')->nullable();
             $table->timestamps();
         });
     }

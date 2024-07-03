@@ -3,12 +3,14 @@
 @section('content')
 <h2>Dashboard de Produtos</h2>
 <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Pesquisar produtos..." onkeyup="searchProducts()">
+    <input type="text" id="searchInput" placeholder="Pesquisar produtos..." name="busca">
 </div>
 
 <button class="add-button" onclick="openAddModal()"><i class="fas fa-plus"></i></button>
 <button class="share-button" onclick="sharePhotos()"><i class="fas fa-share-alt"></i></button>
+<div class="prodbuscas"></div>
 <div id="productList" class="row">
+    <div class="errobusca"></div>
 @foreach($produtos as $produto)
 <div class="col-12 col-sm-6 col-md-4">
 <div class="product-card" onclick="openCloneModal(${product.id}, event)">
@@ -110,4 +112,7 @@
         </div>
     </div>
 </div>
+@section('scripts')
+
+    @stop
 @stop

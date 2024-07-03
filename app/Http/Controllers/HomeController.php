@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('painel.home');
+
+        $produtos=Produto::orderBy('id','desc')->paginate(30);
+
+
+        return view('painel.home', compact('produtos'));
     }
 }

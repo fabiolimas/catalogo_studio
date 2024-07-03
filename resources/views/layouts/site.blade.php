@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Produtos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
     .scroll-button {
     position: fixed;
@@ -196,9 +197,10 @@
 
         @yield('content')
     </div>
+    @yield('scripts')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
         function shareImages(files, descriptions) {
             if (navigator.canShare && navigator.canShare({ files })) {
@@ -244,7 +246,97 @@
     function scrollToBottom() {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
+
+
+
     </script>
+
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        $(document).ready(function() {
+            function buscarTransportadora() {
+                var busca = $("#searchInput").val();
+                // Obtém o valor da caixa de pesquisa
+                $.ajax({
+                    url: "{{ route('busca-produtos') }}", // Arquivo PHP que processará a busca
+                    type: "get",
+                    data: {
+                        busca: busca
+                    }, // Dados a serem enviados para o servidor
+                    success: function(response) {
+
+                       console.log(response)
+                       $("#productList").html(response);
+                        $(".errobusca").html(response.status);
+
+                    },
+                    error: function(result) {
+                        console.log(result);
+                    }
+                });
+            }
+            $("#searchInput").keyup(function() {
+               buscarTransportadora()
+            });
+
+        });
+            </script>
+             @if(Session::has('success'))
+
+             <script>
+
+             swal("Sucesso!","{{Session::get('success')}}", "success",{
+
+                 closeOnClickOutside: false, //não fecha o swal se clicar fora
+                 dangerMode: true, //danger mode pra chamar atenção
+                 closeOnEsc: false, // não deixa fechar no esc
+                 buttons: {
+
+            confirmar: { // botao confirmar
+                text: "Ok", // texto do botão
+                value: "ok", // valor pra gente testar la em baixo
+                className: "swal-button--confirm", // classe do botão css
+            },
+
+
+         },
+         icon: "success",
+         }
+
+         );
+             </script>
+
+             @elseif(Session::has('fail'))
+             <script>
+
+                 swal("Ops!", "{{Session::get('fail')}}","error",{
+
+                     closeOnClickOutside: false, //não fecha o swal se clicar fora
+                     dangerMode: true, //danger mode pra chamar atenção
+                     closeOnEsc: false, // não deixa fechar no esc
+                     buttons: {
+
+                confirmar: { // botao confirmar
+                    text: "Falha!", // texto do botão
+                    value: "ok", // valor pra gente testar la em baixo
+                    className: "swal-button--confirm", // classe do botão css
+                },
+
+
+             },
+             icon: "danger", // icone do swal
+             }
+
+             );
+             </script>
+             @endif
 
 </body>
 </html>
