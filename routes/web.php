@@ -25,4 +25,4 @@ Route::get('/delete/{id}', [App\Http\Controllers\ProdutoController::class, 'dele
 Route::get('/aumenta-estoque/{id}', [App\Http\Controllers\ProdutoController::class, 'aumentaEstoque'])->name('aumenta-estoque')->middleware('auth');
 Route::get('/diminui-estoque/{id}', [App\Http\Controllers\ProdutoController::class, 'diminuiEstoque'])->name('diminui-estoque')->middleware('auth');
 Route::post('/adicionar-produto', [App\Http\Controllers\ProdutoController::class, 'store'])->name('adicionar-produto')->middleware('auth');
-
+Route::get('/busca-produtos-admin', [App\Http\Controllers\HomeController::class, 'buscaProdutos'])->name('busca-produtos-admin');

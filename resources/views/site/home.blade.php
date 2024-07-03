@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
+
 <h2>Dashboard de Produtos</h2>
 <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Pesquisar produtos..." name="busca">
@@ -112,7 +113,5 @@
         </div>
     </div>
 </div>
-@section('scripts')
 
-    @stop
 @stop
