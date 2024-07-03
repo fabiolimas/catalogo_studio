@@ -14,7 +14,7 @@
 @foreach($produtos as $produto)
 <div class="col-12 col-sm-6 col-md-4">
 <div class="product-card" onclick="openCloneModal(${product.id}, event)">
-    <img src="{{asset($produto->imagem)}}" class="product-image" alt="Imagem do produto">
+    <img src="{{Storage::url($produto->imagem)}}" class="product-image" alt="Imagem do produto">
     <div class="product-info">
         <div><strong>{{$produto->nome}}</strong></div>
         <div><strong>Tamanho:</strong> <span style="color:#fff">@</span>{{$produto->tamanho}}</div>
