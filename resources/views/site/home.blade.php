@@ -6,7 +6,7 @@
     <input type="text" id="searchInput" placeholder="Pesquisar produtos..." name="busca">
 </div>
 
-<button class="add-button" onclick="openAddModal()"><i class="fas fa-plus"></i></button>
+
 <button class="share-button" onclick="sharePhotos()"><i class="fas fa-share-alt"></i></button>
 <div class="prodbuscas"></div>
 <div id="productList" class="row">
