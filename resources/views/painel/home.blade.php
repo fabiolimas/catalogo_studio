@@ -67,8 +67,9 @@
 
             @include('painel.modais.modal_duplicar')
         @endforeach
-        {{ $produtos->links() }}
+
     </div>
+    {{ $produtos->links() }}
     @include('painel.modais.modal_adicionar_novo')
 
 @stop

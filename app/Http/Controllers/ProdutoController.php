@@ -73,8 +73,8 @@ class ProdutoController extends Controller
 
             Produto::find($request->id)->update($data);
         }
-        // return response()->json(['status' => 'Produto editado com sucesso!',]);
-// return redirect()->back()->with('success', 'Produto editado com sucesso!');
+
+ return redirect()->back()->with('success', 'Produto editado com sucesso!');
 }
 
 public function delete(Request $request){

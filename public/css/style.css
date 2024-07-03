@@ -182,11 +182,13 @@
             }
             .container {
                 padding: 20px;
-                width: fit-content;
+                min-width:fit-content;
             }
             .row.d-flex.justify-content-center.align-items-center {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
             }
+
+
         }
