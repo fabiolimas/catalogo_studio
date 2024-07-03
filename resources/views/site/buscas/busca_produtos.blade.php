@@ -2,7 +2,7 @@
     <div class="errobusca"></div>
     @foreach ($produtos as $produto)
         <div class="col-12 col-sm-6 col-md-4">
-            <div class="product-card" onclick="openCloneModal(${product.id}, event)">
+            <div class="product-card" >
                 <img src="{{ Storage::url($produto->imagem)}}" class="product-image" alt="Imagem do produto">
                 <div class="product-info">
                     <div><strong>{{ $produto->nome }}</strong></div>
@@ -25,6 +25,9 @@
                 class="fas fa-arrow-up"></i></button>
         <button id="scrollBottomButton" class="scroll-button" onclick="scrollToBottom()"><i
                 class="fas fa-arrow-down"></i></button>
+                @include('painel.modais.modal_edicao')
+
+                @include('painel.modais.modal_duplicar')
     @endforeach
     {{ $produtos->links() }}
 </div>
