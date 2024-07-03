@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $produtos=Produto::orderBy('id','desc')->paginate(30);
+        $produtos=Produto::orderBy('id','desc')->simplePaginate(30);
 
 
         return view('painel.home', compact('produtos'));
@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         $busca = $request->busca;
         if($busca == null || $busca == ''){
-            $produtos=Produto::paginate(30);
+            $produtos=Produto::simplePaginate(30);
         }
         $produtos = Produto::where('nome', 'like', '%'.$busca.'%')
         ->orWhere('tamanho',$busca)
@@ -43,7 +43,7 @@ class HomeController extends Controller
         ->orWhere('marca', 'like', '%'.$busca.'%')
         ->orWhere('cor', 'like', '%'.$busca.'%')
         ->orWhere('referencia', 'like', '%'.$busca.'%')
-         ->paginate(30);
+         ->simplePaginate(30);
 
         if ($produtos->count() >= 1) {
             return view('painel.buscas.busca_produtos', compact('produtos'));

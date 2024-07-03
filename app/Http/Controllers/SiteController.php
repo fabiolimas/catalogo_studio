@@ -10,7 +10,7 @@ class SiteController extends Controller
 public function index(){
 
 
-    $produtos=Produto::paginate(30);
+    $produtos=Produto::simplePaginate(30);
 
     return view('site.home', compact('produtos'));
 }
@@ -26,7 +26,7 @@ public function buscaProdutos(Request $request){
     ->orWhere('marca', 'like', '%'.$busca.'%')
     ->orWhere('cor', 'like', '%'.$busca.'%')
     ->orWhere('referencia', 'like', '%'.$busca.'%')
-     ->paginate(30);
+     ->simplePaginate(30);
 
     if ($produtos->count() >= 1) {
         return view('site.buscas.busca_produtos', compact('produtos'));

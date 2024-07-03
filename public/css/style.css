@@ -180,15 +180,15 @@
             .product-info {
                 width: 100%;
             }
-            .container {
-                padding: 20px;
-                min-width:fit-content;
-            }
+
             .row.d-flex.justify-content-center.align-items-center {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
             }
+            .container {
+                flex-wrap: nowrap;
+              }
 
 
         }
