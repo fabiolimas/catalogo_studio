@@ -33,7 +33,7 @@
                         {{-- ${product.tamanho_salto ? `<div><strong>Tamanho do Salto:</strong> ${product.tamanho_salto}</div>` : ''} --}}
                     </div>
                     <div class="product-actions">
-                        <button id="share-buttons-{{$loop->index+1}}" onclick="shareProduct({{$loop->index}})">Compartilhar</button>
+
                         <div class="row d-flex justify-content-center align-items-center">
                             <div class="col-md-3 ">
                                 <button class="btn btn-primary btn-sm mr-2 d-flex justify-content-center align-items-center"
@@ -65,20 +65,6 @@
 
     <script>
 
-function shareProduct(index) {
-    let shareButton= document.querySelector('#share-buttons-{{$loop->index+1}}');
-    shareButton.addEventListener("click", async () => {
-  const file = new File(data, '{{$produto->imagem}}', { type: "image/jpg" });
-  try {
-    await navigator.share({
-      title: "Example File",
-      files: [file]
-    });
-  } catch (err) {
-    console.error("Share failed:", err.message);
-  }
-});
-}
 
     </script>
             @include('painel.modais.modal_edicao')
