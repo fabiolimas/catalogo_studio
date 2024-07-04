@@ -105,8 +105,10 @@ async function sharePhotos() {
 
 
             if (images.length > 0) {
-                shareImages(images, descriptions);
-                shareDescricao(descriptions);
+               shareImages(images, descriptions);
+
+
+
 
             } else {
                 Swal.fire({
@@ -117,12 +119,15 @@ async function sharePhotos() {
             }
         }
 
+
+
+
         function shareImages(files, descriptions) {
             if (navigator.canShare && navigator.canShare({ files })) {
                 navigator.share({
                     files,
                     title: 'Produtos',
-                    //text: descriptions.join('\n\n'),
+                    text: descriptions.join('\n\n'),
                 }).then(() => {
                     console.log('Compartilhamento bem-sucedido');
                 }).catch((error) => {
