@@ -106,6 +106,8 @@ async function sharePhotos() {
 
             if (images.length > 0) {
                 shareImages(images, descriptions);
+                shareDescricao(descriptions);
+
             } else {
                 Swal.fire({
                     title: 'Nenhuma foto para compartilhar',
@@ -121,6 +123,26 @@ async function sharePhotos() {
                     files,
                     title: 'Produtos',
                     //text: descriptions.join('\n\n'),
+                }).then(() => {
+                    console.log('Compartilhamento bem-sucedido');
+                }).catch((error) => {
+                    console.log('Erro ao compartilhar', error);
+                });
+            } else {
+                Swal.fire({
+                    title: 'Navegador não suporta compartilhamento de arquivos',
+                    icon: 'info',
+                    confirmButtonText: 'Fechar'
+                });
+            }
+        }
+
+        function shareDescricao(descriptions) {
+            if (navigator.canShare) {
+                navigator.share({
+
+                    title: 'Produtos',
+                    text: descriptions.join('\n\n'),
                 }).then(() => {
                     console.log('Compartilhamento bem-sucedido');
                 }).catch((error) => {
