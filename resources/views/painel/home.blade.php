@@ -8,7 +8,7 @@
     </div>
 
     <button class="add-button" data-toggle="modal" data-target="#addProductModal"><i class="fas fa-plus"></i></button>
-    <button class="share-button" onclick="shareAllProducts()" style="z-index:9999"><i class="fas fa-share-alt"></i></button>
+    <button class="share-button" onclick="sharePhotos()" style="z-index:9999"><i class="fas fa-share-alt"></i></button>
 
     <div id="productList" class="row">
         <div class="errobusca"></div>
@@ -63,10 +63,7 @@
                     class="fas fa-arrow-down"></i></button>
 
 
-    <script>
 
-
-    </script>
             @include('painel.modais.modal_edicao')
 
             @include('painel.modais.modal_duplicar')
@@ -75,5 +72,75 @@
     </div>
     {{ $produtos->links() }}
     @include('painel.modais.modal_adicionar_novo')
+
+    <script>
+
+async function sharePhotos() {
+
+
+            const cards = document.querySelectorAll('.product-card');
+            const imageMap = new Map();
+
+            Array.from(cards).forEach(card => {
+                if (card.style.display !== 'none') {
+                    const img = card.querySelector('.product-image');
+                    const src = img.src;
+                    const productInfo = card.querySelector('.product-info').innerText;
+                    const productName = card.querySelector('.product-info div strong').innerText;
+                    const size = productInfo.match(/Tamanho:\s(\S+)/)[1];
+                    if (!imageMap.has(src)) {
+                        imageMap.set(src, { image: img, sizes: new Set(), productName: productName });
+                    }
+                    imageMap.get(src).sizes.add(size);
+                }
+            });
+
+            const images = [];
+            const descriptions = [];
+            for (let [src, { image, sizes, productName }] of imageMap) {
+                images.push(await urlToFile(src));
+                descriptions.push(`No modelo ${productName} temos os tamanhos: ${Array.from(sizes).join(', ')}`);
+            }
+
+
+
+            if (images.length > 0) {
+                shareImages(images, descriptions);
+            } else {
+                Swal.fire({
+                    title: 'Nenhuma foto para compartilhar',
+                    icon: 'info',
+                    confirmButtonText: 'Fechar'
+                });
+            }
+        }
+
+        function shareImages(files, descriptions) {
+            if (navigator.canShare && navigator.canShare({ files })) {
+                navigator.share({
+                    files,
+                    title: 'Produtos',
+                    //text: descriptions.join('\n\n'),
+                }).then(() => {
+                    console.log('Compartilhamento bem-sucedido');
+                }).catch((error) => {
+                    console.log('Erro ao compartilhar', error);
+                });
+            } else {
+                Swal.fire({
+                    title: 'Navegador não suporta compartilhamento de arquivos',
+                    icon: 'info',
+                    confirmButtonText: 'Fechar'
+                });
+            }
+        }
+
+        async function urlToFile(url) {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const name = url.split('/').pop();
+            return new File([blob], name, { type: blob.type });
+        }
+    </script>
 
 @stop

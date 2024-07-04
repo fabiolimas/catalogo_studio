@@ -25,9 +25,7 @@
                 class="fas fa-arrow-up"></i></button>
         <button id="scrollBottomButton" class="scroll-button" onclick="scrollToBottom()"><i
                 class="fas fa-arrow-down"></i></button>
-                @include('painel.modais.modal_edicao')
 
-                @include('painel.modais.modal_duplicar')
     @endforeach
     {{ $produtos->links() }}
 </div>
